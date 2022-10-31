@@ -137,15 +137,15 @@ public class DMLTest {
 		@Test
 		public void updateUserTest() throws SQLException {
 			deleteAll();
-			User user = new User("eznen5", "0111", "ezen5", "ezen5@gmail.com", new Date(), "fb", new Date());
+			User user = new User("purplaying@gmail.com", "01110111", "퍼플레잉", "purplaying@gmail.com", new Date(), "fb", new Date());
 			int rowCnt = insertUser(user);
 			assertTrue(rowCnt == 1);
 			
 			// set으로 데이터 변경
-			user.setPwd("0112");
-			user.setEmail("ezen5@naver.com");
-			rowCnt = updateUser(user);
-			assertTrue(rowCnt == 1);
+//			user.setPwd("0112");
+//			user.setEmail("ezen5@naver.com");
+//			rowCnt = updateUser(user);
+//			assertTrue(rowCnt == 1);
 			
 //			User user2 = new User("eznen6", "0111", "ezen6", "ezen6@gmail.com", new Date(), "fb", new Date());
 //			rowCnt = updateUser(user2);
