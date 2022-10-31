@@ -23,7 +23,7 @@ public class User {
 	private String sns;
 	private Date reg_date;
 
-	public User() {
+	public User(String id, String pwd, String name, String email, Date birth, String sns, Date reg_date) {
 		//super();
 		this.id = id;
 		this.pwd = pwd;
@@ -34,9 +34,11 @@ public class User {
 		this.reg_date = reg_date;
 	}
 
+	public User() {}
+	
 	@Override
 	public int hashCode() {
-		return Objects.hash(birth, email, id, name, pwd, sns, reg_date);
+		return Objects.hash(id, pwd, name, email, birth, sns, reg_date);
 	}
 
 	@Override
