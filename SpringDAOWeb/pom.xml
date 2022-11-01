@@ -32,7 +32,7 @@
 		    <groupId>org.springframework</groupId>
 		    <artifactId>spring-test</artifactId>
 		    <version>${org.springframework-version}</version>
-		    <scope>test</scope>
+<!-- 		    <scope>test</scope> -->
 		</dependency>	
 		<!-- https://mvnrepository.com/artifact/org.springframework/spring-jdbc -->
 		<dependency>
@@ -143,6 +143,11 @@
 		</dependency>
 	
 		<!-- Test -->
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-test</artifactId>
+		    <version>5.2.22.RELEASE</version>
+		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
