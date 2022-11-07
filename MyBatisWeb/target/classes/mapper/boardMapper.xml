@@ -11,8 +11,28 @@
 	</sql>
 	<select id="select" parameterType="int" resultType="BoardDto">
 		<include refid="selectFromBoard"/>
-		where no = #{bno}
+		where bno = #{bno}
 	</select>
 	  
+  	<delete id="deleteAll">
+  		delete from t_board
+  	</delete>
+  	
+  	<insert id="insert" parameterType="BoardDto">
+  		INSERT INTO public.t_board
+		(title, "content", writer)
+		VALUES(#{title}, #{content}, #{writer})
+  	</insert>
+  	
+  	<select id="count" resultType="int">
+  		SELECT count(*) FROM t_board
+  	</select>
+  	
+  	<select id="selectPage" parameterType="map" resultType="BoardDto">
+  		<include refid="selectFromBoard"/>
+  		ORDER BY reg_date DESC, bno DESC 
+		LIMIT #{pageSize} OFFSET #{offset}
+  	</select>
+  	
   	
 </mapper>
