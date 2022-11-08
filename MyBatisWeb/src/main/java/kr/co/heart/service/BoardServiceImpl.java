@@ -25,6 +25,13 @@ public class BoardServiceImpl implements BoardService {
 		// TODO Auto-generated method stub
 		return boardDao.count();
 	}
+	@Override
+	public BoardDto read(Integer bno) throws Exception {
+		BoardDto boardDto = boardDao.select(bno);
+		//비즈니스 로직추가(조회수 증가)
+		boardDao.increaseViewCnt(bno);
+		return boardDto;
+	}
 	
 	
 }

@@ -33,9 +33,9 @@
 	.no .writer .viewcnt {width: 10%;} .title {width: 40%;} .regdate{width: 20%;}
 	td.title {text-align: left;}
 	td.title:hover {text-decoration: underline;}
-	.paging-container{}
+	.paging-container{ width: 100%; height: 70px; display: flex; margin-top:50px; margin: auto; justify-content: center;}
 	.paging {color:black; align-item:center;}
-	
+	.page{color:black; padding: 6px; margin-right: 10px;}
 }
     </style>
   </head>
@@ -73,7 +73,11 @@
 					<c:forEach var="boardDto" items="${list}">
 						<tr>
 							<td class="no">${boardDto.bno }</td>
-							<td class="title"><a href="">${boardDto.title }</a></td>
+							<td class="title">
+								<a href="<c:url value="/board/read?bno=${boardDto.bno}&page=${page }&pageSize=${pageSize }"/>">
+									${boardDto.title }
+								</a>
+							</td>
 							<td class="writer">${boardDto.writer }</td>
 							<td class="regdate"><fmt:formatDate value="${boardDto.reg_date }" pattern="yyyy-MM-dd" type="date"/></td>
 							<td class="viewcnt">${boardDto.view_cnt}</td>
@@ -87,6 +91,18 @@
 					<div class="paging">
 						<c:if test="${totalCnt == null || totalCnt == 0 }">
 							<div>게시물이 없습니다.</div>
+						</c:if>
+						<!-- 게시물이 있는 경우, page nav 출력  -->
+						<c:if test="${totalCnt != null || totalCnt != 0 }">
+							<c:if test="${pr.showPrev }">
+								<a class="page" href="<c:url value="/board/list?page=${pr.beginPage-1 }"/>"> < </a>
+							</c:if>
+							<c:forEach var="i" begin="${pr.beginPage }" end="${pr.endPage }">
+								<a class="page" href="<c:url value="/board/list?page=${i}"/>"> ${i} </a>
+							</c:forEach>
+							<c:if test="${pr.showNext }">
+								<a class="page" href="<c:url value="/board/list?page=${pr.endPage+1 }"/>"> > </a>
+							</c:if>
 						</c:if>
 					</div>
 				</div>

@@ -26,7 +26,7 @@ public class PageResolver {
 		this.pageSize = pageSize;
 		
 		this.totalPage = (int)Math.ceil(totalCnt/ (double)pageSize);
-		this.beginPage = ((page / NAV_SIZE) * NAV_SIZE) + 1;
+		this.beginPage = (page-1) / NAV_SIZE * NAV_SIZE + 1;
 		this.endPage =  Math.min(this.beginPage + this.NAV_SIZE - 1, totalPage);
 		this.showPrev = (beginPage != 1);
 		this.showNext = endPage != totalPage;

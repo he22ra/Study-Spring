@@ -18,10 +18,16 @@ public class BoardDaoImpleTest2 {
 		
 		@Test
 		public void insertDummyDataTest() throws Exception{
-			boardDao.deletAll();
+//			boardDao.deletAll();
+//			
+//			for(int i=1; i<=250; i++) {
+//				BoardDto boardDto = new BoardDto("Pioneering"+i, "Ready for Action"+i, "ezen"+i);
+//				boardDao.insert(boardDto);
+//			}
 			
-			for(int i=1; i<=50; i++) {
-				BoardDto boardDto = new BoardDto("Pioneering"+i, "Ready for Action"+i, "ezen"+i);
+			
+			for(int i=1; i<=5; i++) {
+				BoardDto boardDto = new BoardDto("Pioneering"+i, "Ready for Action"+i, "ezen5");
 				boardDao.insert(boardDto);
 			}
 			
