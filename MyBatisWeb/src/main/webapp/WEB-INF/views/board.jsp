@@ -24,7 +24,7 @@
   	.frm {width: 100%;}
   	input { height:35px;}
   	input, textarea {width:100%; margin: 5px 0 10px 0; border: 1px solide #e8e8e8; padding: 2rem 1rem; background-color: #f8f8f8; outline-color: #e6e6e6; }
-  	.btn {width: 90px; height:40px; padding: 5px; text-align: center; border: 1px solide #e8e8e8; margin: 15px 5px;}
+  	.btn {width: 90px; height:40px; padding: 5px; text-align: center; border: 1px solide #e8e8e8; margin: 15px 5px; cursor:pointer;}
   </style>
   
   
@@ -41,13 +41,71 @@
 			<li><a href=""><i class="fas fa-search small"></i></a></li>
 		</ul>
 	</div>
-	<script type="text/javascript">
+	<script type="text/javascript"> 
 		$(document).ready(function(){
 				$("#listBtn").on("click",function(){
-					location.href="<c:url value='/board/list?page=${page}&pageSize=${pageSize}'/>";	
-				}) 			
+					location.href="<c:url value='/board/list?page=${page}&pageSize=${pageSize}'/>";
+				})
+				
+				$("#writeBtn").on("click",function(){
+					let form = $("#form");
+					form.attr("action","<c:url value='/board/write' />");
+					form.attr("method", "post");
+					
+					if(formCheck())
+						form.submit();
+				})
+				
+				let formCheck = function() {
+					let form = document.getElementById("form");
+					if(form.title.value=="") {
+						alert("제목을 입력하세요.");
+						form.title.focus();
+						return false;
+					}
+					if(form.content.value=="") {
+						alert("내용을 입력하세요.");
+						form.content.focus();
+						return false;
+					}
+					return true;
+				}
+				
+				$("#removeBtn").on("click", function() {
+					if(!confirm("정말로 삭제하시겠습니까?")) return;
+				
+					let form = $("#form")
+					form.attr("action","<c:url value='/board/remove?page=${page}&pageSize=${pageSize}' />")
+					form.attr("method", "post")
+					form.submit()
+				})
+				
+				$("#modifyBtn").on("click", function() {
+					let form = $("form");
+					let isReadonly = $("input[name=title]").attr('readonly');
+					
+					//1. 읽기 상태이면 수정상태로 변경
+					if(isReadonly=='readonly'){
+						$(".writing-header").html("게시판 수정")
+						$("input[name=title]").attr('readonly', false)
+						$("textarea").attr('readonly',false)
+						$("#modifyBtn").html("<i class='fa fa-pencil'></i> 등록")
+						return;
+					}
+					//2.수정 상태면 수정된 내용을 서버로 전송
+					form.attr("action", "<c:url value='/board/modify?page=${page}&pageSize=${pageSize}' />")
+					form.attr("method", "post")
+					if(formCheck())
+						form.submit();
+					
+				})
 		})
 		
+	</script>
+	<script type="text/javascript">
+		let msg="${msg}";
+		if(msg =="WRT_ERR") alert("게시물 등록에 실패하였습니다. 다시 시도해 주세요.");
+		if(msg =="MOD_ERR") alert("게시물 수정에 실패하였습니다. 다시 시도해 주세요.");
 	</script>
 	<div class="container">
 		<h2 class="writing-header">게시판 ${mode=="new" ? "글쓰기" : "읽기"} </h2>

@@ -18,9 +18,6 @@
   <script src="http://code.jquery.com/jquery-1.11.3.js"></script>
     <title>게시판 리스트</title>
     <style type="text/css">
-    
-    </style>
-    <style type="text/css">
     *{box-sizing : border-box; margin: 0; padding: 0; font-family: "Noto Sans KR", sans-serif;}
     a{text-decoration: non; color: black;}
     button, input {border: none; outline: none;}
@@ -36,6 +33,15 @@
 	.paging-container{ width: 100%; height: 70px; display: flex; margin-top:50px; margin: auto; justify-content: center;}
 	.paging {color:black; align-item:center;}
 	.page{color:black; padding: 6px; margin-right: 10px;}
+	.btn {width: 90px; height:40px; padding: 5px; text-align: center; border: 1px solide #e8e8e8; margin: 15px 5px; cursor:pointer;}
+	.btn-writer{margin-left:30px;}
+	.btn:hover{text-decoration: underline;}
+	.search-form {height: 37px; display: flex; }
+	.search-option {width:100px; height: 100%; outline: none; margin-right: 5px; border: 1px solid #ccc; color: gray;}
+	.search-input {color: gray; background-color: white; border: 1px solid #ccc; height: 100%; width: 300px; font-size: 15px; padding: 5px 7px;}
+	.search-input::placeholder {color: gray;}
+	.search-button {width: 20%; height: 100%; background-color: rgb(22,22,22); color:rgb(209,209,209); display: flex; align-items: center; justify-content: center; font-size: 15px;}
+	.search-button::hover {color : rgb(165, 165, 165);}
 }
     </style>
   </head>
@@ -51,14 +57,27 @@
 			</ul>
 		</div>
 		<script type="text/javascript">
-		
+			let msg = "${msg}"
+			if(msg == "DEL_OK") alert("성공적으로 삭제되었습니다.")
+			if(msg == "DEL_ERR") alert("삭제되었거나 없는 게시물입니다.")
+			if(msg == "WRT_OK") alert("성공적으로 등록되었습니다.")
+			if(msg == "MOD_OK") alert("성공적으로 수정되었습니다.")
 		</script>
 		<div style="text-align: center;">
 			<div class="board-container">	
 				<div class="search-container">
-					<form action="">
-					
+					<form action="<c:url value="/board/list"/>" class="search-form" method="get">
+						<select class="search-option" name="option">
+							<option value="A" ${option == 'A' ? "selected" : "" }>제목+내용</option>
+							<option value="T" ${option == 'T' ? "selected" : "" }>제목</option>
+							<option value="W" ${option == 'W' ? "selected" : "" }>작성자</option>
+						</select>
+						<input type="text" name="keyword" class="search-input" value="${param.keyword}"
+								placeholder="검색어를 입력하세요">
+						<input type="submit" class="search-button" value="검색">
 					</form>
+					<button id="writeBtn" class="btn btn-write" onclick="location.href='<c:url value="/board/write"/>'">
+					<i class="fa fa-pencil"></i>글쓰기</button>
 				</div>
 				<!-- board list section -->
 				<table>

@@ -3,7 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
-<mapper namespace="kr.co.heart.dao.BoardMapper.">
+<mapper namespace="kr.co.heart.dao.BoardMapper">
 
 	<sql id="selectFromBoard">
 		SELECT bno, title, content, writer, view_cnt, comment_cnt, reg_date, up_date
@@ -18,14 +18,35 @@
   		delete from t_board
   	</delete>
   	
+  	<delete id="delete" parameterType="map">
+		delete from t_board where bno = #{bno} and writer = #{writer}	
+	</delete>
+  	
   	<insert id="insert" parameterType="BoardDto">
-  		INSERT INTO public.t_board
+  		INSERT INTO t_board
 		(title, "content", writer)
 		VALUES(#{title}, #{content}, #{writer})
   	</insert>
   	
   	<select id="count" resultType="int">
   		SELECT count(*) FROM t_board
+  	</select>
+  	
+  	<select id="searchResultCnt" parameterType="SearchItem" resultType="int">
+  		SELECT count(*)
+		FROM t_board
+		WHERE TRUE
+		LIKE concat('%', #{keyword}, '%') 
+  	</select>
+  	
+  	
+  	<select id="searchSelectPage" parameterType="SearchItem" resultType="BoardDto">
+  		SELECT bno, title , "content", writer, view_cnt , comment_cnt , reg_date 
+		FROM t_board 
+		WHERE TRUE AND title 
+		LIKE concat('%', #{keyword}, '%') 
+		ORDER BY reg_date DESC, bno DESC 
+		LIMIT #{pageSize} OFFSET #{offset}
   	</select>
   	
   	<select id="selectPage" parameterType="map" resultType="BoardDto">
@@ -38,6 +59,12 @@
   		UPDATE t_board
 		SET view_cnt = view_cnt + 1
 		WHERE bno = #{bno}
+  	</update>
+  	
+  	<update id="update" parameterType="BoardDto">
+	  	UPDATE t_board
+		SET title = #{title}, "content" = #{content}, up_date = now()
+		WHERE bno = #{bno} AND writer = #{writer}
   	</update>
   	
   	

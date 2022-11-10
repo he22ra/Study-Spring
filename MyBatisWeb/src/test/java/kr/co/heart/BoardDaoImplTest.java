@@ -43,7 +43,7 @@ public class BoardDaoImplTest {
 	
 	@Test
 	public void selectPageTest() throws Exception {
-		boardDao.deletAll();
+		boardDao.deleteAll();
 		
 		//더미 데이터 입력
 		for(int i=1; i<=10; i++) {

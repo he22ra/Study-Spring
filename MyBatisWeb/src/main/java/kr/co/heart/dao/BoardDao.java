@@ -11,11 +11,15 @@ public interface BoardDao {
 	
 	int insert(BoardDto dto) throws Exception;
 	int count() throws Exception;
-	int deletAll() throws Exception;
+	int deleteAll() throws Exception;
 
 	List<BoardDto> selectPage(Map map) throws Exception;
 
 	int increaseViewCnt(Integer bno) throws Exception;
+
+	int delete(Integer bno, String writer) throws Exception;
+
+	int update(BoardDto boardDto) throws Exception;
 	
 
 }
