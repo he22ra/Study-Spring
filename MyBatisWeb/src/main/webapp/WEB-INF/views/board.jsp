@@ -44,7 +44,8 @@
 	<script type="text/javascript"> 
 		$(document).ready(function(){
 				$("#listBtn").on("click",function(){
-					location.href="<c:url value='/board/list?page=${page}&pageSize=${pageSize}'/>";
+//					location.href="javascript:history.back(-1)'/>";
+					location.href="<c:url value='/board/list${pr.sc.getQueryString(page)}'/>";
 				})
 				
 				$("#writeBtn").on("click",function(){

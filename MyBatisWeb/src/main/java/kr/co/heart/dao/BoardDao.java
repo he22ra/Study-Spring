@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import kr.co.heart.domain.BoardDto;
+import kr.co.heart.domain.SearchItem;
 
 public interface BoardDao {
 	
@@ -21,5 +22,7 @@ public interface BoardDao {
 
 	int update(BoardDto boardDto) throws Exception;
 	
+	int searchResultCnt(SearchItem sc) throws Exception;
+	List<BoardDto> searchSelectPage(SearchItem sc) throws Exception;	
 
 }
