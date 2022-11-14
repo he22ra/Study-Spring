@@ -101,13 +101,13 @@ public class BoardController {
 	}
 	
 	@GetMapping("/read")
-	public String read(Integer bno, Integer page, Integer pageSize, Model m) {
+	public String read(Integer bno, SearchItem sc, Model m) {
 		try {
 			BoardDto boardDto =	boardService.read(bno);
 //			m.addAttribute("boardDto", boardDto);		// 아래 문장과 동일
 			m.addAttribute(boardDto);
-			m.addAttribute("page", page);
-			m.addAttribute("pageSize", pageSize);
+//			m.addAttribute("page", page);
+//			m.addAttribute("pageSize", pageSize);
 		
 		} catch (Exception e) {
 			e.printStackTrace();

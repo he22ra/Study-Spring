@@ -93,7 +93,7 @@
 						<tr>
 							<td class="no">${boardDto.bno }</td>
 							<td class="title">
-								<a href="<c:url value="/board/read?${pr.sc.queryString}&bno=${boardDto.bno}"/>">
+								<a href="<c:url value="/board/read${pr.sc.queryString}&bno=${boardDto.bno}"/>">
 									${boardDto.title }
 								</a>
 							</td>
@@ -116,7 +116,12 @@
 								<a class="page" href="<c:url value="/board/list${pr.sc.getQueryString(pr.beginPage-1) }" />"> &lt; </a>
 							</c:if>
 							<c:forEach var="i" begin="${pr.beginPage }" end="${pr.endPage }">
-								<a class="page" href="<c:url value="/board/list${pr.sc.getQueryString(i)}" />">${i }</a>
+								<a class="page" href="<c:url value="/board/list${pr.sc.getQueryString(i)}" />">
+<%-- 								<c:if test="${i} == ${pr.page} ">
+									<span style="color:red;">${i}</span>
+								</c:if> --%>
+								${i }
+								</a>
 							</c:forEach>
 							<c:if test="${pr.showNext }">
 								<a class="page" href="<c:url value="/board/list${pr.sc.getQueryString(pr.endPage+1) }" />"> &gt; </a>
