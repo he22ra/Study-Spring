@@ -9,6 +9,16 @@
 			<param name="ConversionPattern" value="%-5p: %c - %m%n" />
 		</layout>
 	</appender>
+
+  <!-- 로그 메세지를 일별로 저장 -->
+	<appender name="dailyRollingFileAppender" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="D:/workspace-spring/log/output.log"/>  <!-- 로그 파일 생성 위치 -->
+		<param name ="Append" value="true"
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="DatePattern" value="">
+		</layout>
+	</appender>
+
 	
 	<!-- Application Loggers -->
 	<logger name="kr.co.heart">
