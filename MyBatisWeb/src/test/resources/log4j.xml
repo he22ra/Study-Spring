@@ -12,12 +12,13 @@
 	
 	<!-- DailyRollingFileAppender : 로그 메시지를 일별 파일로 출력함  -->
 	<appender name="dailyRollingFileAppender" class="org.apache.log4j.DailyRollingFileAppender">
-	  <param name="File" value="C:\\workspace-spring\\log\\ouput.log"/> <!-- 로그 파일 생성 위치  -->
+	  <param name="File" value="C:\\log\\ouput.log"/> <!-- 로그 파일 생성 위치  -->
       <param name="Append" value="true" />
-      <layout class="org.apache.log4j.PatternLayout">      <!-- 출력형식 지정  -->
-         <param name="DatePattern" value="'.'yyyy-MM-dd" />
-         <param name="ConversionPattern" value="[%d{HH:mm:ss}][%-5p](%F:%L)-%m%n" />      
-   </appender>
+		<layout class="org.apache.log4j.PatternLayout">			<!-- 출력형식 지정 -->
+			<param name="DatePattern" value="'.'yyyy-MM-dd" />
+			<param name="ConversionPattern" value="[%d{HH:mm:ss}][%-5p](%F:%L)-%m%n" />
+		</layout>
+	</appender>
 
 	
 	

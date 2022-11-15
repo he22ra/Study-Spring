@@ -13,16 +13,17 @@
   <!-- 로그 메세지를 일별로 저장 -->
 	<appender name="dailyRollingFileAppender" class="org.apache.log4j.DailyRollingFileAppender">
 		<param name="File" value="D:/workspace-spring/log/output.log"/>  <!-- 로그 파일 생성 위치 -->
-		<param name ="Append" value="true"
+		<param name ="Append" value="true"/>
 		<layout class="org.apache.log4j.PatternLayout">
-			<param name="DatePattern" value="">
+			<param name="DatePattern" value="'.'yyyy-MM-dd" />
+			<param name="ConversionPattern" value="[%d{HH:mm:ss}][%-5p](%F:%L)-%m%n" />
 		</layout>
 	</appender>
 
 	
 	<!-- Application Loggers -->
 	<logger name="kr.co.heart">
-		<level value="info" />
+		<level value="debug" />
 	</logger>
 	
 	<!-- 3rdparty Loggers -->
@@ -44,8 +45,9 @@
 
 	<!-- Root Logger -->
 	<root>
-		<priority value="warn" />
+		<priority value="debug" />
 		<appender-ref ref="console" />
+		<appender-ref ref="dailyRollingFileAppender" />
 	</root>
 	
 </log4j:configuration>
