@@ -8,6 +8,7 @@
   		<!-- bean 등록. alias 대소문자 구분X -->
   		<typeAlias alias="BoardDto" type="kr.co.heart.domain.BoardDto"/>
   		<typeAlias alias="SearchItem" type="kr.co.heart.domain.SearchItem"/>
+  		<typeAlias alias="CommentDto" type="kr.co.heart.domain.CommentDto"/>
  
   	</typeAliases>
   </configuration>

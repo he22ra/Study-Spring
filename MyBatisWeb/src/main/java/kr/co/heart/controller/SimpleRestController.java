@@ -11,10 +11,16 @@ import kr.co.heart.domain.Person;
 @Controller
 public class SimpleRestController {
 	
+	@GetMapping("/test")
+	public String test() {
+		return "test";
+	}
+	
 	@GetMapping("/ajax")
 	public String ajax() {
 		return "ajax";
 	}
+	
 	
 	@ResponseBody
 	@PostMapping("/send")

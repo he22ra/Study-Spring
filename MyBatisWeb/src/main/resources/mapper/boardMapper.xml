@@ -62,6 +62,7 @@
   	<select id="searchSelectPage" parameterType="SearchItem" resultType="BoardDto">
 		SELECT bno , title , "content" , writer , view_cnt , comment_cnt , reg_date 
 		FROM t_board 
+		WHERE TRUE
 		<include refid="searchCondition" />
 		ORDER BY reg_date DESC, bno DESC 
 		LIMIT #{pageSize} OFFSET #{offset}
@@ -84,6 +85,12 @@
 		SET title = #{title}, "content" = #{content}, up_date = now()
 		WHERE bno = #{bno} AND writer = #{writer}
   	</update>
+  	
+  	<update id="updateCommentCnt" parameterType="map">
+  		UPDATE t_board 
+		SET comment_cnt = comment_cnt + #{cnt}
+		WHERE  bno = #{bno}
+;  	</update>
   	
   	
 </mapper>
