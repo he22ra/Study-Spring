@@ -18,5 +18,16 @@
 		WHERE bno = #{bno}
 		ORDER BY reg_date, cno 
 	</select>
+	<insert id="insert" parameterType="CommentDto">
+		INSERT INTO t_comment
+		   (bno, pcno, comment, commenter, reg_date, up_date)
+		values
+		   (#{bno}, #{pcno}, #{comment}, #{commenter}, now(), now())
+	</insert>
+	<update id="update" parameterType="CommentDto">
+	  	UPDATE t_comment
+		SET comment=#{comment}, up_date=now()
+		WHERE cno=#{cno} and commenter=#{commenter}
+  	</update>
 	
 </mapper>

@@ -43,6 +43,7 @@
 	</div>
 	<script type="text/javascript"> 
 		$(document).ready(function(){
+				
 				let bno = ${boardDto.bno}
 		    	
 		    	let showList = function(bno){
@@ -66,12 +67,59 @@
 							tmp += ' commenter=<span class="commenter">' + comment.commenter + '</span>'
 							tmp += ' comment=<span class="comment">' + comment.comment + '</span>'
 							tmp += ' <button class="delBtn">삭제</button>'
+							tmp += ' <button class="modBtn">수정</button>'
 							tmp += '</p>'		
 					})
 					
 					return tmp += "</div>"
 				}
-			
+				
+				$("#modBtn").click(function() {
+					
+	    			let cno = $(this).attr("data-cno")
+					let comment = $("input[name=comment]").val();
+					
+					if(comment.trim() == '') { 
+						alert("댓글을 입력해 주세요.")
+						$("input[name=comment]").focus()
+						return
+					}
+					
+					$.ajax({
+						type : 'PATCH',			//요청 메서드
+						url : '/heart/comments/'+cno,		//요청 URI
+						headers : { "content-type" : "application/json" }, 		//요청 헤더
+						data : JSON.stringify({cno:cno, comment:comment}),		// 서버로 전송할 데이터. stringify()로 직렬화 필요.
+						success : function(result) {		// 서버로부터 응답이 도착하면 호출될 함수
+							alert(result)
+							showList(bno)
+						},
+						error : function() { alert("error") }		//에러가 발생했을 때, 호출될 함수	
+					})				
+					
+	    		})
+	    		$("#insertBtn").click(function() {
+				
+				let comment = $("input[name=comment]").val();
+				
+				if(comment.trim() == '') { 
+					alert("댓글을 입력해 주세요.")
+					$("input[name=comment]").focus()
+					return
+				}
+				
+				$.ajax({
+					type : 'post',			//요청 메서드
+					url : '/heart/comments?bno='+bno,		//요청 URI
+					headers : { "content-type" : "application/json" }, 		//요청 헤더
+					data : JSON.stringify({bno:bno, comment:comment}),		// 서버로 전송할 데이터. stringify()로 직렬화 필요.
+					success : function(result) {		// 서버로부터 응답이 도착하면 호출될 함수
+						alert(result)
+						showList(bno)
+					},
+					error : function() { alert("error") }		//에러가 발생했을 때, 호출될 함수	
+				})				
+			})
 				$("#sendBtn").click(function() {
 //					if (bno == ${boardDto.bno})
 					showList(bno)
@@ -97,6 +145,20 @@
 					
 				})
 				
+				//수정하기
+				$("#commentList").on("click", ".modBtn", function() { 
+					alert("댓글수정 버튼 클릭됨")
+					
+					let cno = $(this).parent().attr("data-cno")		//<li>태그는 <button>의 부모임.
+					let comment = $("span.comment", $(this).parent()).text()
+					//1. comment의 내용을 input에 출력
+					$("input[name=comment]").val(comment)
+					//2. cno 전달
+					$("#modBtn").attr("data-cno",cno)
+					
+										
+				})	
+					
 				
 			
 				$("#listBtn").on("click",function(){
@@ -183,9 +245,14 @@
 				<button type="button" id="removeBtn" class="btn btn-remove"><i class="fa fa-trash"></i>삭제</button>
 			</c:if>
 			<button type="button" id="listBtn" class="btn btn-list"><i class="fa fa-list"></i>목록</button>
-			<button id="sendBtn" type="button">SEND</button>
-    		<div id="commentList"></div>
 		</form>
+		
+		<button id="sendBtn" type="button">SEND</button>
+		<button id="modBtn" type="button">수정하기</button>
+		<div id="commentList"></div>
+		
+		comment : <input type="text" name="comment" /><br/>
+		<button id="insertBtn" type="button">댓글작성</button>		
 	</div>			
     	
   </body>

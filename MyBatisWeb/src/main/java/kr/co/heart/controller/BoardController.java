@@ -28,12 +28,6 @@ public class BoardController {
 	@Autowired
 	BoardService boardService;
 	
-	@GetMapping("/test")
-	public String test() {
-		
-		return "test";			// board.jsp 읽기와 쓰기에 사용. 쓰기에 사용할때는 mode=new
-	}	
-	
 	@PostMapping("/modify")
 	public String modify(BoardDto boardDto, Integer page, Integer pageSize,
 						RedirectAttributes rattr, Model m, HttpSession session) {
